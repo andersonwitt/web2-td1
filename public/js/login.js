@@ -1,4 +1,4 @@
-const userName = document.getElementById("username");
+const emailInput = document.getElementById("email");
 const password = document.getElementById("password");
 const form = document.querySelector("form");
 import baseFetch from './shared/fetch.js';
@@ -19,7 +19,7 @@ async function login(e) {
       formData[element.name] = element.value;
     }
   }
-  await signIn(formData).then(async (response) => {
+  signIn(formData).then(async (response) => {
     if (response.redirected) {
       window.location.href = response.url;
       return;
@@ -28,9 +28,9 @@ async function login(e) {
 
     if (response.status === 401 && obj.error) {
       alert(obj.error);
-      userName.value = "";
+      emailInput.value = "";
       password.value = "";
-      userName.focus();
+      emailInput.focus();
     }
   });
 }
