@@ -77,4 +77,12 @@ body {
       margin: 10px 0;
       color: #fff;
     }
+
+   .card-user{
+    background-color: rgb(50, 50, 50);
+    width: 15rem;
+    height: 17rem;
+    padding: 1.5rem;
+    border-radius: 10px;
+   } 
     

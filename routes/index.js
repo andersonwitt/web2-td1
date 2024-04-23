@@ -11,6 +11,10 @@ router.get("/home", authMiddleware, (_, res) => {
   res.render("home");
 });
 
+router.get("/user" ,(_, res) => {
+  res.render("user");
+}); 
+
 router.post("/api/login", (req, res) => {
   if (req.body.username === "root" && req.body.password === "unesc@1234") {
     req.session.isAuthenticated = true;
