@@ -1,15 +1,10 @@
 const userName = document.getElementById("username");
 const password = document.getElementById("password");
 const form = document.querySelector("form");
+import baseFetch from './shared/fetch.js';
 
 function signIn(data) {
-  return fetch("/api/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
+  return baseFetch("/api/login", "POST", data);
 }
 
 async function login(e) {

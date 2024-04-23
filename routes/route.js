@@ -1,7 +1,8 @@
-const express = require("express");
+import express from "express";
+import authMiddleware from "../middlewares/authMiddleware.js";
+import initialAuthMiddleware from "../middlewares/initialAuthMiddleware.js";
+
 const router = express.Router();
-const authMiddleware = require("../middlewares/authMiddleware");
-const initialAuthMiddleware = require("../middlewares/initialAuthMiddleware");
 
 router.get("/", initialAuthMiddleware, (_, res) => {
   res.render("index");
@@ -20,4 +21,4 @@ router.post("/api/login", (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

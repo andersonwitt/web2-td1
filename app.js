@@ -1,10 +1,9 @@
-const express = require("express");
-const path = require("path");
-const indexRouter = require("./routes/index");
-const bodyParser = require("body-parser");
-const session = require("express-session");
+import express from "express";
+import indexRouter from "./routes/route.js";
+import bodyParser from "body-parser";
+import session from "express-session";
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8000;
 const app = express();
 
 app.use(
@@ -18,10 +17,10 @@ app.use(
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.set("views", path.join(__dirname, "views"));
+app.set("views", "views");
 app.set("view engine", "ejs");
 
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static("public"));
 
 app.use("/", indexRouter);
 

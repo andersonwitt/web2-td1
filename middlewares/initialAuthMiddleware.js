@@ -6,4 +6,4 @@ const initialRouteMiddleware = (req, res, next) => {
   }
 };
 
-module.exports = initialRouteMiddleware;
+export default initialRouteMiddleware;
