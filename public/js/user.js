@@ -28,7 +28,7 @@ function submitForm(e) {
         try {
             const obj = await response.json();
             
-            if(obj.error)
+            if(obj.success)
             {
                 alert("Erro ao criar usuário", obj.message);
             } else {
