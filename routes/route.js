@@ -26,6 +26,12 @@ router.get("/user", (_, res) => {
   res.render("user");
 });
 
+router.get("/category", (_, res) => {
+  res.render("category");
+});
+router.get("/accounts", (_, res) => {
+  res.render("accounts");
+});
 router.post("/api/login", async (req, res) => {
   const usersJSONString = fs.readFileSync(
     path.join(__dirname, "../data/users.json")
