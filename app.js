@@ -25,5 +25,5 @@ app.use(express.static("public"));
 app.use("/", indexRouter);
 
 app.listen(PORT, () => {
-  console.log(`Servidor iniciado na porta ${PORT}`);
+  console.log(`Servidor iniciado na porta ${PORT} no endereço http://localhost:${PORT}`);
 });
