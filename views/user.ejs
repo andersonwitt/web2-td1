@@ -11,19 +11,34 @@
         <form novalidate class="form-section">
             <div class="input-group">
                 <label for="name">Nome completo</label>
-                <input name="name" id="name" />
+                <input type="text"  name="name" id="name" />
+            </div>
+            <div class="input-group">
+                <label for="user">User</label>
+                <input type="text" name="user" id="user" />
             </div>
             <div class="input-group">
                 <label for="email">Email</label>
-                <input name="email" id="email" />
+                <input type="email" name="email" id="email" />
             </div>
             <div class="input-group">
-                <label for="password">Senha</label>
-                <input name="password" id="password" />
+                <label for="pwd">Senha</label>
+                <input type="password" name="pwd" id="pwd" />
+            </div>
+            <div class="input-group">
+                <label for="level">Level</label>
+                <select name="level" id="level">
+                    <option value="admin">Admin</option>
+                    <option value="user">Usuário</option>
+                </select>
+            </div>
+            <div>
+                <label for="status">Status</label>
+                <input type="checkbox" name="status" id="status" />
             </div>
             <button type="submit">Criar Usuário</button>
         </form>
     </section>
-    <script async src="/js/user.js"></script>
+    <script async type="module" src="./js/user.js"></script>
 </body>
 </html>
