@@ -20,12 +20,12 @@ async function login(e) {
     }
   }
   signIn(formData).then(async (response) => {
-    if (response.redirected) {
-      window.location.href = response.url;
+    const obj = await response.json();
+
+    if (obj.success && !obj.message) {
+      window.location.href = `${window.location.origin}/home`
       return;
     }
-
-    const obj = await response.json();
 
     if (obj.message && !obj.success) {
       alert(obj.message);
