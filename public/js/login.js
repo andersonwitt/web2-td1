@@ -1,7 +1,7 @@
 const emailInput = document.getElementById("email");
 const password = document.getElementById("password");
 const form = document.querySelector("form");
-import baseFetch from './shared/fetch.js';
+import baseFetch from "./shared/fetch.js";
 
 function signIn(data) {
   return baseFetch("/api/login", "POST", data);
@@ -24,13 +24,15 @@ async function login(e) {
       window.location.href = response.url;
       return;
     }
+
     const obj = await response.json();
 
-    if (response.status === 401 && obj.error) {
-      alert(obj.error);
+    if (obj.message && !obj.success) {
+      alert(obj.message);
       emailInput.value = "";
       password.value = "";
       emailInput.focus();
+      return;
     }
   });
 }

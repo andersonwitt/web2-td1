@@ -1,18 +1,12 @@
-import express from "express";
-import authMiddleware from "../middlewares/authMiddleware.js";
 import initialAuthMiddleware from "../middlewares/initialAuthMiddleware.js";
-import fs from 'fs';
-import { promisify } from "util";
-import path from 'path';
-import { fileURLToPath } from 'url';
+import authMiddleware from "../middlewares/authMiddleware.js";
+import { fileURLToPath } from "url";
+import express from "express";
+import path from "path";
+import fs from "fs";
 
 const __filename = fileURLToPath(import.meta.url);
-
 const __dirname = path.dirname(__filename);
-
-const pfs = {
-  readFileAsync: promisify(fs.readFileSync)
-}
 
 const router = express.Router();
 
@@ -29,7 +23,9 @@ router.get("/user", (_, res) => {
 });
 
 router.post("/api/login", async (req, res) => {
-  const usersJSONString = await pfs.readFileAsync(path.join(__dirname))
+  const usersJSONString = fs.readFileSync(
+    path.join(__dirname, "../data/users.json")
+  );
   const users = JSON.parse(usersJSONString);
   const isUserFound = users.some(
     (user) => user.email === req.body.email && req.body.password === user.pwd
@@ -39,7 +35,7 @@ router.post("/api/login", async (req, res) => {
     req.session.isAuthenticated = true;
     res.redirect("/home");
   } else {
-    res.status(401).send({ error: "Usuário e/ou senha incorreto(s)!" });
+    res.send({ success: false, message: "Usuário e/ou senha incorreto(s)!" });
   }
 });
 
