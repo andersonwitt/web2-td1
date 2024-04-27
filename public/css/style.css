@@ -1,96 +1,99 @@
 body {
-    margin: 0;
-    width: 100vw;
-    min-height: 100vh;
-    background-color: #121212;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .title {
-    font-size: 1.5rem;
-    color: #fff;
-    font-weight: 600;
-  }
-  
-  .card {
-    background-color: rgb(50, 50, 50);
-    width: 15rem;
-    height: 17rem;
-    padding: 1.5rem;
-    border-radius: 10px;
-  }
-  
-  .input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  
-  .form-section {
-    display: flex;
-    margin-top: 1.5rem;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .message-box {
-    background-color: #333;
-    border-radius: 5px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  }
-  
-  label {
-    color: #fff;
-  }
-  
-  input[type="text"], input[type="password"], input[type="email"] {
-    all: unset;
-    border-radius: 5px;
-    background-color: #fff;
-    height: 1rem;
-    padding: 10px;
-  }
-  
-  button {
-    all: unset;
-    background-color: #c62828;
-    padding: 0.5rem;
-    color: #fff;
-    text-align: center;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 1.5rem;
-  }
-  
-  p {
-    font-size: 18px;
-    margin: 10px 0;
-    color: #fff;
-  }
-  
-  h1 {
-      font-size: 1.5rem;
-      margin: 10px 0;
-      color: #fff;
-    }
+  margin: 0;
+  width: 100vw;
+  min-height: 100vh;
+  background-color: #121212;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif; 
+}
+.title {
+  font-size: 1.5rem;
+  color: #fff;
+  font-weight: 600;
+}
 
-    .card-user {
-      background-color: rgb(50, 50, 50);
-      width: 24rem;
-      height: 35rem;
-      padding: 1.3rem;
-      border-radius: 10px;
-  }
+.card {
+  background-color: rgb(50, 50, 50);
+  width: 15rem;
+  height: 17rem;
+  padding: 1.5rem;
+  border-radius: 10px;
+}
 
-  select{
-    all: unset;
-    border-radius: 5px;
-    background-color: #fff;
-    height: 1rem;
-    padding: 10px;
-  }
-    
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-section {
+  display: flex;
+  margin-top: 1.5rem;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.message-box {
+  background-color: #333;
+  border-radius: 5px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+label {
+  color: #fff;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  all: unset;
+  border-radius: 5px;
+  background-color: #fff;
+  height: 1rem;
+  padding: 10px;
+}
+
+button {
+  all: unset;
+  background-color: #c62828;
+  padding: 0.5rem;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 1.5rem;
+}
+
+p {
+  font-size: 18px;
+  margin: 10px 0;
+  color: #fff;
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin: 10px 0;
+  color: #fff;
+}
+
+.card-user {
+  background-color: rgb(50, 50, 50);
+  width: 24rem;
+  height: 35rem;
+  padding: 1.3rem;
+  border-radius: 10px;
+}
+
+select {
+  all: unset;
+  border-radius: 5px;
+  background-color: #fff;
+  height: 1rem;
+  padding: 10px;
+}
+

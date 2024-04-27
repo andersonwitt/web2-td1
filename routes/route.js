@@ -24,6 +24,13 @@ router.get("/user", (_, res) => {
   res.render("user");
 });
 
+router.get("/category", (_, res) => {
+  res.render("category");
+});
+router.get("/accounts", (_, res) => {
+  res.render("accounts");
+});
+
 router.post("/api/user", apiAuthMiddleware, (req, res) => {
   try {
     const usersJSONString = fs.readFileSync(
