@@ -5,7 +5,7 @@ import baseFetch from './shared/fetch.js';
 const form = document.querySelector("form");
 
 function createUser(data) {
-    return baseFetch("/api/user", "POST", data);
+    return baseFetch("/api/user", "POST", data); 
 }
 
 function submitForm(e) {
@@ -21,26 +21,24 @@ function submitForm(e) {
         }
     }
 
+    console.log("Dados do formulário:", formData);
+
+
     createUser(formData).then(async (response) => {
-        if (response.ok) {
-            alert("Usuário criado com sucesso!");
-            form.reset(); // Limpa o formulário após criar o usuário
-        } else {
-            try {
-                const obj = await response.json();
-                if (obj.error) {
-                    alert("Erro ao criar usuário: " + obj.error);
-                } else {
-                    alert("Erro ao criar usuário.");
-                }
-            } catch (error) {
-                console.error('Erro na solicitação:', error);
-                alert("Erro na solicitação. Por favor, tente novamente mais tarde.");
+        try {
+            const obj = await response.json();
+            
+            if(!obj.success)
+            {
+                alert("Erro ao criar usuário", obj.message);
+            } else {
+                alert("Usuário criado com sucesso!");
             }
+
+        } catch (error) {
+            console.error("Erro na solicitação:", error);
+            alert("Erro na solicitação. Por favor, tente novamente mais tarde.");
         }
-    }).catch(error => {
-        console.error('Erro na solicitação:', error);
-        alert("Erro na solicitação. Por favor, tente novamente mais tarde.");
     });
 }
 
