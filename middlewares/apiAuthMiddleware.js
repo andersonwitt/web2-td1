@@ -1,16 +1,17 @@
 import jwt from "jsonwebtoken";
+import mapCookies from "../utils/cookie.js";
 const secretKey = "your_secret_key";
 
 const apiAuthMiddleware = (req, res, next) => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
+  const cookieString = req.headers["cookie"];
+  const cookies = mapCookies(cookieString);
 
-  if (token == null) {
+  if (!cookies?.auth) {
     res.sendStatus(401);
     return;
   }
 
-  jwt.verify(token, secretKey, (err, user) => {
+  jwt.verify(cookies.auth, secretKey, (err, user) => {
     if (err) {
       res.sendStatus(401);
     } else {

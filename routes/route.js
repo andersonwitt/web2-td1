@@ -76,12 +76,36 @@ router.post("/api/user", apiAuthMiddleware, (req, res) => {
 
     fs.writeFileSync(
       path.join(__dirname, "../data/users.json"),
-      JSON.stringify(users)
+      JSON.stringify(users, null, 2)
     );
 
     res.send({ success: true, message: "Usuário inserido com sucesso!" });
   } catch {
     res.send({ success: false, message: "Erro ao inserir usuário!" });
+  }
+});
+
+router.post("/api/category", apiAuthMiddleware, (req, res) => {
+  try {
+    const cateoriesJSONString = fs.readFileSync(
+      path.join(__dirname, "../data/categories.json")
+    );
+    const categories = JSON.parse(cateoriesJSONString);
+
+    categories.push({
+      id: uuid(),
+      description: req.body.description,
+      type: req.body.type,
+    });
+
+    fs.writeFileSync(
+      path.join(__dirname, "../data/categories.json"),
+      JSON.stringify(categories, null, 2)
+    );
+
+    res.send({ success: true, message: "Categoria inserida com sucesso!" });
+  } catch {
+    res.send({ success: false, message: "Erro ao inserir categoria!" });
   }
 });
 
