@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Categoria</title>
+    <title>Conta</title>
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
@@ -15,24 +15,21 @@
             <div
               class="d-flex w-100 justify-content-between align-items-center"
             >
-              <h1 class="title">Categoria</h1>
+              <h1 class="title">Conta</h1>
               <button type="submit">Salvar</button>
             </div>
             <div class="input-group">
-              <label for="description">Nome da Categoria:</label>
+              <label for="description">Descrição:</label>
               <input type="text" id="description" name="description" required />
             </div>
             <div class="input-group">
-              <label for="type">Tipo de Categoria:</label>
-              <select id="type" name="type">
-                <option value="Receita">Receita</option>
-                <option value="Despesa">Despesa</option>
-              </select>
+              <label for="comments">Comentários:</label>
+              <textarea rows="4" id="comments" name="comments"></textarea>
             </div>
           </form>
         </div>
       </section>
     </main>
-    <script async type="module" src="./js/category.js"></script>
+    <script async type="module" src="./js/account.js"></script>
   </body>
 </html>

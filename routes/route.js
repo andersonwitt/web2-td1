@@ -1,12 +1,12 @@
 import initialAuthMiddleware from "../middlewares/initialAuthMiddleware.js";
+import apiAuthMiddleware from "../middlewares/apiAuthMiddleware.js";
 import authMiddleware from "../middlewares/authMiddleware.js";
 import { fileURLToPath } from "url";
+import { v4 as uuid } from "uuid";
+import jwt from "jsonwebtoken";
 import express from "express";
 import path from "path";
 import fs from "fs";
-import apiAuthMiddleware from "../middlewares/apiAuthMiddleware.js";
-import { v4 as uuid } from "uuid";
-import jwt from "jsonwebtoken";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,18 +19,34 @@ router.get("/", initialAuthMiddleware, (_, res) => {
 });
 
 router.get("/home", authMiddleware, (_, res) => {
-  res.render("home");
+  res.render("home", {
+    lancamentosDoDia: [{ descricao: "Algo", valor: "R$25,50" }],
+  });
 });
 
-router.get("/user", (_, res) => {
+router.get("/user", authMiddleware, (_, res) => {
   res.render("user");
 });
 
-router.get("/category", (_, res) => {
+router.get("/category", authMiddleware, (_, res) => {
   res.render("category");
 });
-router.get("/accounts", (_, res) => {
-  res.render("accounts");
+router.get("/account", authMiddleware, (_, res) => {
+  res.render("account");
+});
+
+router.get("/entry", authMiddleware, (_, res) => {
+  const categoriesJSONString = fs.readFileSync(
+    path.join(__dirname, "../data/categories.json")
+  );
+  const accountsJSONString = fs.readFileSync(
+    path.join(__dirname, "../data/accounts.json")
+  );
+
+  const categories = JSON.parse(categoriesJSONString);
+  const accounts = JSON.parse(accountsJSONString);
+
+  res.render("entry", { accounts, categories });
 });
 router.post("/api/login", async (req, res) => {
   const usersJSONString = fs.readFileSync(
@@ -93,10 +109,10 @@ router.post("/api/user", apiAuthMiddleware, (req, res) => {
 
 router.post("/api/category", apiAuthMiddleware, (req, res) => {
   try {
-    const cateoriesJSONString = fs.readFileSync(
+    const categoriesJSONString = fs.readFileSync(
       path.join(__dirname, "../data/categories.json")
     );
-    const categories = JSON.parse(cateoriesJSONString);
+    const categories = JSON.parse(categoriesJSONString);
 
     categories.push({
       id: uuid(),
@@ -112,6 +128,30 @@ router.post("/api/category", apiAuthMiddleware, (req, res) => {
     res.send({ success: true, message: "Categoria inserida com sucesso!" });
   } catch {
     res.send({ success: false, message: "Erro ao inserir categoria!" });
+  }
+});
+
+router.post("/api/account", apiAuthMiddleware, (req, res) => {
+  try {
+    const accountsJSONString = fs.readFileSync(
+      path.join(__dirname, "../data/accounts.json")
+    );
+    const accounts = JSON.parse(accountsJSONString);
+
+    accounts.push({
+      id: uuid(),
+      description: req.body.description,
+      comments: req.body.comments,
+    });
+
+    fs.writeFileSync(
+      path.join(__dirname, "../data/accounts.json"),
+      JSON.stringify(accounts, null, 2)
+    );
+
+    res.send({ success: true, message: "Conta inserida com sucesso!" });
+  } catch {
+    res.send({ success: false, message: "Erro ao inserir Conta!" });
   }
 });
 

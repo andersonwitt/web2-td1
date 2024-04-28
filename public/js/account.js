@@ -2,8 +2,8 @@ import baseFetch from "./shared/fetch.js";
 
 const form = document.querySelector("form");
 
-function createUser(data) {
-  return baseFetch("/api/user", "POST", data);
+function createAccount(data) {
+  return baseFetch("/api/account", "POST", data);
 }
 
 function submitForm(e) {
@@ -11,7 +11,7 @@ function submitForm(e) {
   let form = e.target;
   let formData = new FormData(form);
   let payload = Object.fromEntries(formData);
-  createUser(payload).then(async (response) => {
+  createAccount(payload).then(async (response) => {
     try {
       const obj = await response.json();
 

@@ -1,14 +1,76 @@
 body {
   margin: 0;
-  width: 100vw;
   min-height: 100vh;
   background-color: #121212;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  display: flex;
+  background-color: #c62828;
+  color: #fff;
+}
+
+ul {
+  display: flex;
+  column-gap: 1.5rem;
+  height: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+li {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 0.5rem;
+  cursor: pointer;
+}
+
+.p-3 {
+  padding: 1.5rem;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.d-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.container-center {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-family: Arial, sans-serif; 
 }
+
 .title {
   font-size: 1.5rem;
   color: #fff;
@@ -31,7 +93,6 @@ body {
 
 .form-section {
   display: flex;
-  margin-top: 1.5rem;
   flex-direction: column;
   gap: 15px;
 }
@@ -50,11 +111,18 @@ label {
 
 input[type="text"],
 input[type="password"],
-input[type="email"] {
-  all: unset;
+input[type="email"],
+input[type="date"] {
   border-radius: 5px;
   background-color: #fff;
   height: 1rem;
+  padding: 10px;
+}
+
+textarea {
+  all: unset;
+  border-radius: 5px;
+  background-color: #fff;
   padding: 10px;
 }
 
@@ -83,9 +151,9 @@ h1 {
 
 .card-user {
   background-color: rgb(50, 50, 50);
-  width: 24rem;
-  height: 35rem;
-  padding: 1.3rem;
+  width: calc(100% - 4rem);
+  min-height: calc(100vh - 13rem);
+  padding: 1.8rem;
   border-radius: 10px;
 }
 
@@ -96,4 +164,3 @@ select {
   height: 1rem;
   padding: 10px;
 }
-

@@ -1,44 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Usuário</title>
     <link rel="stylesheet" href="/css/style.css" />
-</head>
-<body>
-    <section class="card-user">
-        <article class="title">Create Users</article>
+  </head>
+  <body>
+    <%- include('header'); -%>
+    <main class="p-3">
+      <section class="card-user">
         <form novalidate class="form-section">
-            <div class="input-group">
-                <label for="name">Nome completo</label>
-                <input type="text"  name="name" id="name" />
-            </div>
-            <div class="input-group">
-                <label for="user">User</label>
-                <input type="text" name="user" id="user" />
-            </div>
-            <div class="input-group">
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" />
-            </div>
-            <div class="input-group">
-                <label for="password">Senha</label>
-                <input type="password" name="password" id="password" />
-            </div>
-            <div class="input-group">
-                <label for="level">Level</label>
-                <select name="level" id="level">
-                    <option value="admin">Admin</option>
-                    <option value="user">Usuário</option>
-                </select>
-            </div>
-            <div>
-                <label for="status">Status</label>
-                <input type="checkbox" name="status" id="status" />
-            </div>
-            <button type="submit">Criar Usuário</button>
+          <div class="d-flex w-100 justify-content-between align-items-center">
+            <article class="title">Usuário</article>
+            <button type="submit">Salvar</button>
+          </div>
+          <div class="input-group">
+            <label for="name">Nome completo</label>
+            <input type="text" name="name" id="name" />
+          </div>
+          <div class="input-group">
+            <label for="user">User</label>
+            <input type="text" name="user" id="user" />
+          </div>
+          <div class="input-group">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" />
+          </div>
+          <div class="input-group">
+            <label for="password">Senha</label>
+            <input type="password" name="password" id="password" />
+          </div>
+          <div class="input-group">
+            <label for="level">Level</label>
+            <select name="level" id="level">
+              <option value="admin">Admin</option>
+              <option value="user">Usuário</option>
+            </select>
+          </div>
+          <div>
+            <label for="status">Status</label>
+            <input type="checkbox" name="status" id="status" />
+          </div>
         </form>
-    </section>
+      </section>
+    </main>
     <script async type="module" src="./js/user.js"></script>
-</body>
+  </body>
 </html>
