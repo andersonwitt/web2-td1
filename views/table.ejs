@@ -1,0 +1,29 @@
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <% columns.forEach(function(column){ %>
+          <th align="left"><%= column %></th>
+        <% }); %>
+      </tr>
+    </thead>
+    <tbody>
+      <% rows.forEach(function(row){ %>
+        <tr>
+          <% row.forEach(function(cell, index){ %>
+            <td>
+              <% if (index < row.length - 1 ) { %>
+                <%= cell %>
+              <% } %> 
+              <% if (row.length - 1 === index) { %>
+                <a href="<%= cell %>">
+                  <img src="./assets/icons/edit.png" alt="edit" />
+                </a>
+              <% } %>
+            </td>
+          <% }); %>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>

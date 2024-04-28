@@ -39,6 +39,10 @@ li {
   padding: 1.5rem;
 }
 
+.mb-3 {
+  margin-bottom: 1.5rem;
+}
+
 .w-100 {
   width: 100%;
 }
@@ -163,4 +167,56 @@ select {
   background-color: #fff;
   height: 1rem;
   padding: 10px;
+}
+
+.table-container {
+  max-height: calc(100vw - 7rem);
+  overflow-x: auto;
+  border-radius: 8px 8px 0px 0px;
+  background-color: #f2f2f2;
+  min-height: calc(100vh - 20rem);
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: calc(100vw - 7rem);
+  border-radius: 8px 8px 0px 0px;
+  overflow: hidden;
+}
+
+thead {
+  background-color: #4caf50;
+  color: white;
+}
+
+th {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+tbody {
+  background-color: #f2f2f2;
+}
+
+tbody > tr:nth-child(even) {
+  background-color: #ddd;
+}
+
+td {
+  padding: 10px 15px;
+}
+
+td > a {
+  justify-content: flex-start;
+}
+
+.button {
+  all: unset;
+  background-color: #c62828;
+  padding: 0.5rem;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
 }

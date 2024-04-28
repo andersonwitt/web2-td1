@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Usuários</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+
+  <body>
+    <%- include('header'); -%>
+    <main class="p-3">
+      <section class="card-user">
+        <div class="d-flex w-100 justify-content-between align-items-center">
+          <h1 class="title mb-3">Usuários</h1>
+          <a class="button" href="/user">Novo usuário</a>
+        </div>
+        <%- include('table'); -%>
+      </section>
+    </main>
+  </body>
+</html>

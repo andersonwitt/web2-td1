@@ -20,16 +20,27 @@
             </div>
             <div class="input-group">
               <label for="description">Descrição:</label>
-              <input type="text" id="description" name="description" required />
+              <input
+                type="text"
+                id="description"
+                name="description"
+                value="<%= account.description %>"
+                required
+              />
             </div>
             <div class="input-group">
               <label for="comments">Comentários:</label>
-              <textarea rows="4" id="comments" name="comments"></textarea>
+              <textarea rows="4" id="comments" name="comments"><% if (account.comments) { %><%= account.comments.trim() %><% } %></textarea>
             </div>
           </form>
         </div>
       </section>
     </main>
-    <script async type="module" src="./js/account.js"></script>
+    <script>
+      const accountData = JSON.parse(
+        `<%= JSON.stringify(account) %>`.replace(/&#34;/g, '"')
+      );
+    </script>
+    <script async type="module" src="/js/account.js"></script>
   </body>
 </html>

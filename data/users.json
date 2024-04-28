@@ -7,5 +7,14 @@
     "pwd": "7a6cc1282c5f6ec0235acd2bfa780145aaskem5n",
     "level": "admin",
     "status": "on"
+  },
+  {
+    "id": "4716b3b8-11f2-4ced-8222-4e802db1a423",
+    "name": "Anderson da Rosa Witt",
+    "email": "andersonrw161196@gmail.com",
+    "user": "anderson",
+    "pwd": "123456",
+    "level": "admin",
+    "status": "off"
   }
 ]

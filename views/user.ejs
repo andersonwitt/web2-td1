@@ -17,34 +17,39 @@
           </div>
           <div class="input-group">
             <label for="name">Nome completo</label>
-            <input type="text" name="name" id="name" />
+            <input type="text" name="name" id="name" value="<%= user.name %>" />
           </div>
           <div class="input-group">
             <label for="user">User</label>
-            <input type="text" name="user" id="user" />
+            <input type="text" name="user" id="user" value="<%= user.user %>" />
           </div>
           <div class="input-group">
             <label for="email">Email</label>
-            <input type="email" name="email" id="email" />
+            <input type="email" name="email" id="email" value="<%= user.email %>" />
           </div>
           <div class="input-group">
             <label for="password">Senha</label>
-            <input type="password" name="password" id="password" />
+            <input type="password" name="password" id="password" value="<%= user.pwd %>" />
           </div>
           <div class="input-group">
             <label for="level">Level</label>
-            <select name="level" id="level">
+            <select name="level" id="level" value="<%= user.level %>">
               <option value="admin">Admin</option>
               <option value="user">Usuário</option>
             </select>
           </div>
           <div>
             <label for="status">Status</label>
-            <input type="checkbox" name="status" id="status" />
+            <input type="checkbox" name="status" id="status" value="<%= user.status %>" />
           </div>
         </form>
       </section>
     </main>
-    <script async type="module" src="./js/user.js"></script>
+    <script>
+      const userData = JSON.parse(
+        `<%= JSON.stringify(user) %>`.replace(/&#34;/g, '"')
+      );
+    </script>
+    <script async type="module" src="/js/user.js"></script>
   </body>
 </html>
