@@ -1,6 +1,6 @@
 import mapCookies from "../utils/cookie.js";
 import jwt from "jsonwebtoken";
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 
 const env = dotenv.config();
 

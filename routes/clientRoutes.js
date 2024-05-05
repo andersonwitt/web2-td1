@@ -1,3 +1,4 @@
+import { reminderMiddleware, sortByDueDate } from "../middlewares/reminderMiddleware.js";
 import initialAuthMiddleware from "../middlewares/initialAuthMiddleware.js";
 import authMiddleware from "../middlewares/authMiddleware.js";
 import { getTableInfo } from "../utils/read.js";
@@ -8,45 +9,17 @@ import fs from "fs";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-function sortByDueDate(a, b) {
-  if (a.due_date > b.due_date) {
-    return 1;
-  }
-  if (a.due_date < b.due_date) {
-    return -1;
-  }
-  return 0;
-}
-
 export function useClientRoutes(router) {
   router.get("/", initialAuthMiddleware, (_, res) => {
     res.render("index");
   });
 
-  router.get("/home", authMiddleware, (_, res) => {
-    const todayIso = new Date().toISOString().split("T")[0];
+  router.get("/home", authMiddleware, (_req, _res, next) => {
+    next();
+  });
 
-    const data = getTableInfo({
-      fileName: "entries",
-      route: "entry",
-      dataMap: [
-        ["id", "ID"],
-        ["type", "Tipo"],
-        ["categories", "Categorias"],
-        ["description", "Descrição"],
-        ["value", "Valor"],
-        ["due_date", "Data do vencimento"],
-        ["payment_date", "Data do pagamento"],
-        ["account", "Conta"],
-        ["status", "Status"],
-        ["comments", "Informações adicionais"],
-      ],
-      filter: (entry) => entry.due_date <= todayIso,
-      hasDelete: true,
-      sort: sortByDueDate,
-    });
-
-    res.render("home", data);
+  router.get("/home", reminderMiddleware, (_, res) => {
+    res.render("home", {...res.locals.data});
   });
 
   router.get("/user", authMiddleware, (_, res) => {
