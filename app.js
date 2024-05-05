@@ -1,9 +1,11 @@
 import express from "express";
-import indexRouter from "./routes/route.js";
 import bodyParser from "body-parser";
+import { useApiRoutes } from "./routes/apiRoutes.js";
+import { useClientRoutes } from "./routes/clientRoutes.js";
 
 const PORT = process.env.PORT || 8000;
 const app = express();
+const router = express.Router();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -13,8 +15,10 @@ app.set("view engine", "ejs");
 
 app.use(express.static("public"));
 
-app.use("/", indexRouter);
+useApiRoutes(router);
+useClientRoutes(router);
 
+app.use("/", router);
 
 app.listen(PORT, () => {
   console.log(

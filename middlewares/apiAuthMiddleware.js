@@ -1,16 +1,19 @@
+import mapCookies from "../utils/cookie.js";
 import jwt from "jsonwebtoken";
-const secretKey = "your_secret_key";
+import dotenv from 'dotenv';
+
+const env = dotenv.config();
 
 const apiAuthMiddleware = (req, res, next) => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
+  const cookieString = req.headers["cookie"];
+  const cookies = mapCookies(cookieString);
 
-  if (token == null) {
+  if (!cookies?.auth) {
     res.sendStatus(401);
     return;
   }
 
-  jwt.verify(token, secretKey, (err, user) => {
+  jwt.verify(cookies.auth, env.parsed.SECRET_KEY, (err, user) => {
     if (err) {
       res.sendStatus(401);
     } else {

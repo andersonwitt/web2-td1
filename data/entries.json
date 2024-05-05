@@ -1,14 +1,38 @@
 [
   {
     "id": "7a6cc1282c5f6ec0235acd2bfa780145aa2a67fd",
-    "type": "Despesa/Receita",
-    "categories": "Aluguel",
-    "description": "Aluguel apto",
-    "value": "750,00",
-    "due_date": "2023-08-15",
-    "payment_date": "2023-08-10",
+    "type": "Despesa",
+    "categories": "Investimentos",
+    "description": "Aluguel apto 102",
+    "value": "1.370,82",
+    "due_date": "2024-05-04",
+    "payment_date": "2024-05-10",
+    "account": "Conta Poupança",
+    "status": "Paga",
+    "comments": "algo"
+  },
+  {
+    "id": "da804693-2a9d-4eee-9134-47319137db4e",
+    "type": "Receita",
+    "categories": "Investimentos",
+    "description": "asdasd",
+    "value": "13,50",
+    "due_date": "2024-04-29",
+    "payment_date": "2024-04-26",
     "account": "Conta Corrente",
-    "status": "Lancada/Confirmada/Paga/Cancelada",
-    "comments": "on"
+    "status": "Paga",
+    "comments": "info"
+  },
+  {
+    "id": "b316d867-91b2-40e4-b045-027822f09e19",
+    "type": "Receita",
+    "categories": "Investimentos",
+    "description": "Receita de Aluguel",
+    "value": "1.000,00",
+    "due_date": "2024-05-10",
+    "payment_date": "2024-06-10",
+    "account": "Conta Corrente",
+    "status": "Lançada",
+    "comments": "algo"
   }
 ]

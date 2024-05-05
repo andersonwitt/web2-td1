@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ICash - Categoria</title>
+    <link rel="icon" type="image/png" href="/assets/icons/favicon.png" />
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <%- include('header'); -%>
+    <main>
+      <section class="card-user">
+        <div class="container">
+          <form class="form-section">
+            <div
+              class="d-flex w-100 justify-content-between align-items-center"
+            >
+              <h1 class="title">Categoria</h1>
+              <button type="submit">Salvar</button>
+            </div>
+            <div class="input-group">
+              <label for="description">Nome da Categoria:</label>
+              <input
+                type="text"
+                id="description"
+                name="description"
+                required
+                value="<%= category.description %>"
+              />
+            </div>
+            <div class="input-group">
+              <label for="type">Tipo de Categoria:</label>
+              <select required id="type" name="type" value="<%= category.type %>">
+                <option value="Receita">Receita</option>
+                <option value="Despesa">Despesa</option>
+              </select>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+    <script>
+      const categoryData = JSON.parse(
+        `<%= JSON.stringify(category) %>`.replace(/&#34;/g, '"')
+      );
+    </script>
+    <script async type="module" src="/js/category.js"></script>
+  </body>
+</html>

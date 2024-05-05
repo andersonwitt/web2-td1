@@ -3,22 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ICash - Início</title>
+    <title>ICash - Usuários</title>
     <link rel="icon" type="image/png" href="/assets/icons/favicon.png" />
     <link rel="stylesheet" href="/css/style.css" />
   </head>
+
   <body>
     <%- include('header'); -%>
     <main>
       <section class="card-user">
         <div class="container">
           <div class="d-flex w-100 justify-content-between align-items-center">
-            <h1 class="title mb-3">Vencimentos do dia e atrasados</h1>
+            <h1 class="title mb-3">Usuários</h1>
+            <a class="button" href="/user">Novo usuário</a>
           </div>
           <%- include('table'); -%>
         </div>
       </section>
     </main>
-    <script async type="module" src="/js/entries.js"></script>
   </body>
 </html>
