@@ -1,35 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Entrada/Saida</title>
+    <title>ICash - Lançamento</title>
+    <link rel="icon" type="image/png" href="/assets/icons/favicon.png" />
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
     <%- include('header'); -%>
-    <main class="p-3">
+    <main>
       <section class="card-user">
         <div class="container">
-          <form novalidate class="form-section">
+          <form class="form-section">
             <div
               class="d-flex w-100 justify-content-between align-items-center"
             >
-              <h1 class="title">Entrada/Saida</h1>
+              <h1 class="title">Lançamento</h1>
               <button type="submit">Salvar</button>
             </div>
             <div class="input-group">
               <label for="type">Tipo</label>
-              <select id="type" name="type">
-                <option value="Receita">Receita</option>
-                <option value="Despesa">Despesa</option>
+              <select required id="type" name="type" value="<%= entry.type %>">
+                <option value="Receita" <% if (entry.type === "Receita") { %> selected <% } %>>Receita</option>
+                <option value="Despesa" <% if (entry.type === "Despesa") { %> selected <% } %>>Despesa</option>
               </select>
             </div>
             <div class="input-group">
               <label for="categories">Categorias</label>
-              <select id="categories" name="categories">
+              <select
+                required
+                id="categories"
+                name="categories"
+                value="<%= entry.categories %>"
+              >
                 <% categories.forEach(category => { %>
-                <option value="<%= category.description %>">
+                <option value="<%= category.description %>" <% if (entry.categories === category.description) { %> selected <% } %>>
                   <%= category.description %>
                 </option>
                 <% }) %>
@@ -37,7 +43,9 @@
             </div>
             <div class="input-group">
               <label for="description">Descrição:</label>
-              <textarea rows="4" id="description" name="description"></textarea>
+              <textarea required rows="4" id="description" name="description">
+<% if (entry.description) { %><%= entry.description.trim() %><% } %></textarea
+              >
             </div>
             <div class="input-group">
               <label for="value">Valor</label>
@@ -46,56 +54,64 @@
                 inputmode="numeric"
                 id="value"
                 name="value"
+                value="<%= entry.value || '0,00' %>"
                 required
               />
             </div>
             <div class="input-group">
-              <label for="due_date">Data 1</label>
+              <label for="due_date">Data do vencimento</label>
               <input
                 type="date"
                 inputmode="numeric"
                 id="due_date"
                 name="due_date"
                 required
+                value="<%= entry.due_date %>"
               />
             </div>
             <div class="input-group">
-              <label for="payment_date">Data 2</label>
+              <label for="payment_date">Data do pagamento</label>
               <input
                 type="date"
                 inputmode="numeric"
                 id="payment_date"
                 name="payment_date"
                 required
+                value="<%= entry.payment_date %>"
               />
             </div>
             <div class="input-group">
               <label for="account">Conta</label>
-              <select id="account" name="account">
+              <select required id="account" name="account" value="<%= entry.account %>">
                 <% accounts.forEach(account => { %>
-                <option value="<%= account.description %>">
-                  <%= account.description %>
+                <option value="<%= account.description %>" <% if (entry.account === account.description) { %> selected <% } %>>
+                  <%= `${account.description} - ${account.comments}` %>
                 </option>
                 <% }) %>
               </select>
             </div>
-            <div>
-              <label for="comments">Habilitar Comentários</label>
-              <input type="checkbox" id="comments" name="comments" required />
+            <div class="input-group">
+              <label for="comments">Informações Adicionais</label>
+              <textarea required rows="4" id="comments" name="comments"><% if (entry.comments) { %><%= entry.comments.trim() %><% } %></textarea>
             </div>
             <div class="input-group">
               <label for="status">Status:</label>
-              <select id="status" name="status">
-                <option value="Lancada">Lancada</option>
-                <option value="Confirmada">Confirmada</option>
-                <option value="Paga">Paga</option>
-                <option value="Cancelada">Cancelada</option>
+              <select required id="status" name="status" value="<%= entry.status %>">
+                <option value="Lançada" <% if (entry.status === "Lançada") { %> selected <% } %>>Lançada</option>
+                <option value="Confirmada" <% if (entry.status === "Confirmada") { %> selected <% } %>>Confirmada</option>
+                <option value="Paga" <% if (entry.status === "Paga") { %> selected <% } %>>Paga</option>
+                <option value="Cancelada" <% if (entry.status === "Cancelada") { %> selected <% } %>>Cancelada</option>
               </select>
             </div>
           </form>
         </div>
       </section>
     </main>
+    <script>
+      const entryData = JSON.parse(
+        `<%= JSON.stringify(entry) %>`.replace(/&#34;/g, '"')
+      );
+    </script>
     <script async type="module" src="/js/entry.js"></script>
   </body>
 </html>

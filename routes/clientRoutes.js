@@ -5,16 +5,18 @@ import { fileURLToPath } from "url";
 import path from "path";
 import fs from "fs";
 
-//TODO - Refatorar rotas de cadastrar/editar e finalizar
-//TODO - Corrigir rota da atualizar com checkbox que o status não esta no body quando checked = false
-//TODO - Finalizar home page
-//TODO - Criar alertas para mensagem de successo e erro e aplica-las
-//TODO - Refatorar estilos
-//TODO - Refatorar logicas finais
-//TODO - Refatorar locais usando valores padrões - ex: your_secret_key e etc.
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+function sortByDueDate(a, b) {
+  if (a.due_date > b.due_date) {
+    return 1;
+  }
+  if (a.due_date < b.due_date) {
+    return -1;
+  }
+  return 0;
+}
 
 export function useClientRoutes(router) {
   router.get("/", initialAuthMiddleware, (_, res) => {
@@ -22,9 +24,29 @@ export function useClientRoutes(router) {
   });
 
   router.get("/home", authMiddleware, (_, res) => {
-    res.render("home", {
-      lancamentosDoDia: [{ descricao: "Algo", valor: "R$25,50" }],
+    const todayIso = new Date().toISOString().split("T")[0];
+
+    const data = getTableInfo({
+      fileName: "entries",
+      route: "entry",
+      dataMap: [
+        ["id", "ID"],
+        ["type", "Tipo"],
+        ["categories", "Categorias"],
+        ["description", "Descrição"],
+        ["value", "Valor"],
+        ["due_date", "Data do vencimento"],
+        ["payment_date", "Data do pagamento"],
+        ["account", "Conta"],
+        ["status", "Status"],
+        ["comments", "Informações adicionais"],
+      ],
+      filter: (entry) => entry.due_date <= todayIso,
+      hasDelete: true,
+      sort: sortByDueDate,
     });
+
+    res.render("home", data);
   });
 
   router.get("/user", authMiddleware, (_, res) => {
@@ -46,51 +68,69 @@ export function useClientRoutes(router) {
   });
 
   router.get("/categories", authMiddleware, (_, res) => {
-    const data = getTableInfo("categories", "category", [
-      ["id", "ID"],
-      ["description", "Descrição"],
-      ["type", "Tipo"],
-    ]);
+    const data = getTableInfo({
+      fileName: "categories",
+      route: "category",
+      dataMap: [
+        ["id", "ID"],
+        ["description", "Descrição"],
+        ["type", "Tipo"],
+      ],
+    });
 
     res.render("categories", data);
   });
 
   router.get("/accounts", authMiddleware, (_, res) => {
-    const data = getTableInfo("accounts", "account", [
-      ["id", "ID"],
-      ["description", "Nome"],
-      ["comments", "Informações"],
-    ]);
+    const data = getTableInfo({
+      fileName: "accounts",
+      route: "account",
+      dataMap: [
+        ["id", "ID"],
+        ["description", "Nome"],
+        ["comments", "Informações"],
+      ],
+    });
 
     res.render("accounts", data);
   });
 
   router.get("/users", authMiddleware, (_, res) => {
-    const data = getTableInfo("users", "user", [
-      ["id", "ID"],
-      ["name", "Nome"],
-      ["email", "Email"],
-      ["user", "Usuário"],
-      ["level", "Tipo"],
-      ["status", "Status"],
-    ]);
+    const data = getTableInfo({
+      fileName: "users",
+      route: "user",
+      dataMap: [
+        ["id", "ID"],
+        ["name", "Nome"],
+        ["email", "Email"],
+        ["user", "Usuário"],
+        ["level", "Tipo"],
+        ["status", "Status"],
+      ],
+    });
 
     res.render("users", data);
   });
 
   router.get("/entries", authMiddleware, (_, res) => {
-    const data = getTableInfo("entries", "entry", [
-      ["id", "ID"],
-      ["type", "Tipo"],
-      ["categories", "Categorias"],
-      ["description", "Descrição"],
-      ["value", "Valor"],
-      ["due_date", "Data 1"],
-      ["payment_date", "Data 2"],
-      ["account", "Conta"],
-      ["status", "Status"],
-      ["comments", "Possui Comentário"],
-    ]);
+    const data = getTableInfo({
+      fileName: "entries",
+      route: "entry",
+      dataMap: [
+        ["id", "ID"],
+        ["type", "Tipo"],
+        ["categories", "Categorias"],
+        ["description", "Descrição"],
+        ["value", "Valor"],
+        ["due_date", "Data do vencimento"],
+        ["payment_date", "Data do pagamento"],
+        ["account", "Conta"],
+        ["status", "Status"],
+        ["comments", "Possui Comentário"],
+      ],
+      hasDelete: true,
+      sort: sortByDueDate,
+    });
 
     res.render("entries", data);
   });
@@ -129,6 +169,25 @@ export function useClientRoutes(router) {
     const categories = JSON.parse(categoriesJSONString);
     const accounts = JSON.parse(accountsJSONString);
 
-    res.render("entry", { accounts, categories });
+    res.render("entry", { accounts, categories, entry: {} });
+  });
+
+  router.get("/entry/:id", authMiddleware, (req, res) => {
+    const categoriesJSONString = fs.readFileSync(
+      path.join(__dirname, "../data/categories.json")
+    );
+    const accountsJSONString = fs.readFileSync(
+      path.join(__dirname, "../data/accounts.json")
+    );
+    const entriesJSONString = fs.readFileSync(
+      path.join(__dirname, "../data/entries.json")
+    );
+
+    const categories = JSON.parse(categoriesJSONString);
+    const accounts = JSON.parse(accountsJSONString);
+    const entries = JSON.parse(entriesJSONString);
+    const entry = entries.find((item) => item.id === req.params.id);
+
+    res.render("entry", { entry, accounts, categories });
   });
 }

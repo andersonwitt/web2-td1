@@ -2,12 +2,13 @@ import apiAuthMiddleware from "../middlewares/apiAuthMiddleware.js";
 import { fileURLToPath } from "url";
 import { v4 as uuid } from "uuid";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 import path from "path";
 import fs from "fs";
 
+const env = dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const secretKey = "your_secret_key";
 
 export const useApiRoutes = (router) => {
   router.post("/api/login", async (req, res) => {
@@ -19,10 +20,15 @@ export const useApiRoutes = (router) => {
       (user) => user.email === req.body.email && req.body.password === user.pwd
     );
 
+    if(isUserFound.status !== "on") {
+      res.send({ success: false, message: "Usuário desativado por favor contate o administrador!" });
+      return;
+    }
+    
     if (isUserFound) {
       jwt.sign(
         { user: isUserFound },
-        secretKey,
+        env.parsed.SECRET_KEY,
         { expiresIn: "24h" },
         (err, token) => {
           if (err) {
@@ -71,40 +77,38 @@ export const useApiRoutes = (router) => {
 
   router.put("/api/user/:id", apiAuthMiddleware, (req, res) => {
     try {
-        const usersJSONString = fs.readFileSync(
-          path.join(__dirname, "../data/users.json")
+      const usersJSONString = fs.readFileSync(
+        path.join(__dirname, "../data/users.json")
+      );
+      const users = JSON.parse(usersJSONString);
+
+      const userIndex = users.findIndex((item) => item.id === req.params.id);
+
+      if (userIndex >= 0) {
+        users.splice(userIndex, 1, {
+          id: req.params.id,
+          name: req.body.name,
+          email: req.body.email,
+          user: req.body.user,
+          pwd: req.body.password,
+          level: req.body.level,
+          status: req.body.status === "on" ? "on" : "off",
+        });
+
+        fs.writeFileSync(
+          path.join(__dirname, "../data/users.json"),
+          JSON.stringify(users, null, 2)
         );
-        const users = JSON.parse(usersJSONString);
-  
-        const userIndex = users.findIndex(
-          (item) => item.id === req.params.id
-        );
-  
-        if (userIndex >= 0) {
-          users.splice(userIndex, 1, {
-            id: req.params.id,
-            name: req.body.name,
-            email: req.body.email,
-            user: req.body.user,
-            pwd: req.body.password,
-            level: req.body.level,
-            status: req.body.status === "on" ? "on" : "off",
-          });
-  
-          fs.writeFileSync(
-            path.join(__dirname, "../data/users.json"),
-            JSON.stringify(users, null, 2)
-          );
-          res.send({
-            success: true,
-            message: "Usuário atualizado com sucesso!",
-          });
-        } else {
-          res.send({ success: false, message: "Usuário não encontrada!" });
-        }
-      } catch {
-        res.send({ success: false, message: "Erro ao atualizar usuário!" });
+        res.send({
+          success: true,
+          message: "Usuário atualizado com sucesso!",
+        });
+      } else {
+        res.send({ success: false, message: "Usuário não encontrada!" });
       }
+    } catch {
+      res.send({ success: false, message: "Erro ao atualizar usuário!" });
+    }
   });
 
   router.post("/api/entry", apiAuthMiddleware, (req, res) => {
@@ -134,10 +138,77 @@ export const useApiRoutes = (router) => {
 
       res.send({
         success: true,
-        message: "Entrada/Saída inserida com sucesso!",
+        message: "Lançamento inserido com sucesso!",
       });
     } catch {
-      res.send({ success: false, message: "Erro ao inserir entrada/saída!" });
+      res.send({ success: false, message: "Erro ao inserir lançamento!" });
+    }
+  });
+
+  router.put("/api/entry/:id", apiAuthMiddleware, (req, res) => {
+    try {
+      const entriesJSONString = fs.readFileSync(
+        path.join(__dirname, "../data/entries.json")
+      );
+      const entries = JSON.parse(entriesJSONString);
+
+      const entryIndex = entries.findIndex((item) => item.id === req.params.id);
+
+      if (entryIndex >= 0) {
+        entries.splice(entryIndex, 1, {
+          id: req.params.id,
+          type: req.body.type,
+          categories: req.body.categories,
+          description: req.body.description,
+          value: req.body.value,
+          due_date: req.body.due_date,
+          payment_date: req.body.payment_date,
+          account: req.body.account,
+          status: req.body.status,
+          comments: req.body.comments,
+        });
+
+        fs.writeFileSync(
+          path.join(__dirname, "../data/entries.json"),
+          JSON.stringify(entries, null, 2)
+        );
+        res.send({
+          success: true,
+          message: "Lançamento atualizado com sucesso!",
+        });
+      } else {
+        res.send({ success: false, message: "Lançamento não encontrado!" });
+      }
+    } catch {
+      res.send({ success: false, message: "Erro ao atualizar Lançamento!" });
+    }
+  });
+
+  router.delete("/api/entry/:id", apiAuthMiddleware, (req, res) => {
+    try {
+      const entriesJSONString = fs.readFileSync(
+        path.join(__dirname, "../data/entries.json")
+      );
+      const entries = JSON.parse(entriesJSONString);
+
+      const entryIndex = entries.findIndex((item) => item.id === req.params.id);
+
+      if (entryIndex >= 0) {
+        entries.splice(entryIndex, 1);
+
+        fs.writeFileSync(
+          path.join(__dirname, "../data/entries.json"),
+          JSON.stringify(entries, null, 2)
+        );
+        res.send({
+          success: true,
+          message: "Lançamento removido com sucesso!",
+        });
+      } else {
+        res.send({ success: false, message: "Lançamento não encontrado!" });
+      }
+    } catch {
+      res.send({ success: false, message: "Erro ao excluir Lançamento!" });
     }
   });
 

@@ -8,22 +8,40 @@
       </tr>
     </thead>
     <tbody>
-      <% rows.forEach(function(row){ %>
+      <% if (!rows.length) { %>
         <tr>
-          <% row.forEach(function(cell, index){ %>
-            <td>
-              <% if (index < row.length - 1 ) { %>
-                <%= cell %>
-              <% } %> 
-              <% if (row.length - 1 === index) { %>
-                <a href="<%= cell %>">
-                  <img src="./assets/icons/edit.png" alt="edit" />
-                </a>
-              <% } %>
-            </td>
-          <% }); %>
+          <td colspan="<%= columns.length %>">
+            <h2>Não há dados a serem exibidos!</h2>
+          </td>
         </tr>
-      <% }); %>
+      <% } %>
+      <% if (rows.length) { %>
+        <% rows.forEach(function(row){ %>
+          <tr>
+            <% row.forEach(function(cells, index){ %>
+              <td>
+                <div class="d-flex gap-2">
+                  <% cells.forEach(function(cell, cellIndex){ %>
+                    <% if (index < row.length - 1 ) { %>
+                      <%= cell %>
+                    <% } %> 
+                    <% if (row.length - 1 === index && cellIndex === 0) { %>
+                      <a href="<%= cell %>">
+                        <img src="./assets/icons/edit.png" alt="edit" />
+                      </a>
+                    <% } %>
+                    <% if (row.length - 1 === index && cellIndex === 1) { %>
+                      <button id="table-delete-action" data-item-id="<%= cell %>" class="icon-button">
+                        <img src="./assets/icons/delete.png" alt="delete" />
+                      </button>
+                    <% } %>
+                  <% }); %>
+                </div>
+              </td>
+            <% }); %>
+          </tr>
+        <% }); %>
+      <% } %>
     </tbody>
   </table>
 </div>

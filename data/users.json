@@ -15,6 +15,24 @@
     "user": "anderson",
     "pwd": "123456",
     "level": "admin",
-    "status": "off"
+    "status": "on"
+  },
+  {
+    "id": "4716b3b8-11f2-4ced-8222-4e802db1a423",
+    "name": "Guilherme Camargo de Oliveira",
+    "email": "guicamargodeoliveira07@gmail.com",
+    "user": "guilherme",
+    "pwd": "102030",
+    "level": "admin",
+    "status": "on"
+  },
+  {
+    "id": "0afc1c9d-b71e-4007-9e69-3ecb4f0a48a6",
+    "name": "asdkçskaçdlk",
+    "email": "andersonrw16@hotmail.com",
+    "user": "asdsaddsad",
+    "pwd": "123456",
+    "level": "admin",
+    "status": "on"
   }
 ]
