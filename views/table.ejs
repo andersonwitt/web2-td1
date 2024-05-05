@@ -27,12 +27,12 @@
                     <% } %> 
                     <% if (row.length - 1 === index && cellIndex === 0) { %>
                       <a href="<%= cell %>">
-                        <img src="./assets/icons/edit.png" alt="edit" />
+                        <img src="/assets/icons/edit.png" alt="edit" />
                       </a>
                     <% } %>
                     <% if (row.length - 1 === index && cellIndex === 1) { %>
                       <button id="table-delete-action" data-item-id="<%= cell %>" class="icon-button">
-                        <img src="./assets/icons/delete.png" alt="delete" />
+                        <img src="/assets/icons/delete.png" alt="delete" />
                       </button>
                     <% } %>
                   <% }); %>

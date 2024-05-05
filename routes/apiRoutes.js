@@ -20,11 +20,14 @@ export const useApiRoutes = (router) => {
       (user) => user.email === req.body.email && req.body.password === user.pwd
     );
 
-    if(isUserFound.status !== "on") {
-      res.send({ success: false, message: "Usuário desativado por favor contate o administrador!" });
+    if (isUserFound.status !== "on") {
+      res.send({
+        success: false,
+        message: "Usuário desativado por favor contate o administrador!",
+      });
       return;
     }
-    
+
     if (isUserFound) {
       jwt.sign(
         { user: isUserFound },
@@ -45,6 +48,11 @@ export const useApiRoutes = (router) => {
     } else {
       res.send({ success: false, message: "Usuário e/ou senha incorreto(s)!" });
     }
+  });
+
+  router.post("/api/signout", (_, res) => {
+    res.clearCookie("auth");
+    res.send({ success: true, message: "" });
   });
 
   router.post("/api/user", apiAuthMiddleware, (req, res) => {

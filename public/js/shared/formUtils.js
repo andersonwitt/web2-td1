@@ -1,5 +1,11 @@
 import baseFetch from "./fetch.js";
 
+export function signOut() {
+  return baseFetch(`/api/signout`, "POST").then(() => {
+    window.location.href = `${window.location.origin}/`;
+  });
+}
+
 function post(path, data) {
   return baseFetch(`/api/${path}`, "POST", data);
 }
