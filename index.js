@@ -25,5 +25,3 @@ app.listen(PORT, () => {
     `Servidor iniciado na porta ${PORT} no endereço http://localhost:${PORT}`
   );
 });
-
-export default app;
